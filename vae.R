@@ -3,8 +3,8 @@ K <- keras::backend()
 library(tensorflow)
 
 # these numbers are for the educational data
-num_stats <- 28
-num_skills <- 3
+num_stats <- 13
+num_skills <- 4
 
 N <- 10000 # number of subjects
 tr <- 10000 # how many to train on - should eventually move to 85% train, 15% test
