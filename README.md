@@ -2,33 +2,31 @@
 
 *Traits*
 
-1. Contact (hand/eye coordination)
-2. Baserunning
-3. Power
-4. Pitch Intuition (are they swinging when they should be?)
-5. Consistency (do they often get in a slump?)
-6. Clutch (do they pull through in pressure situations?)
+1. Contact - BABIP, AVG
+2. Baserunning - SPD
+3. Power - ISO, SLG
+4. Pitch Intuition - OBP
 
 *Statistics*
 
-1. Singles
-2. Doubles
-3. Triples
-4. Homeruns
-5. Batting Average = contact, consistency
-6. On Base Percentage = pitch intuition, consistency
-7. Slugging Percentage (total bases/at bats) = contact, baserunning, power
-8. Isolated Power (amount of extra bases with a hit) = baserunning, power
-9. Stealing Percentage = baserunning
-10. Ground-Out to Fly-Out Ratio = contact, power
-11. Ground-Ball to Fly-Ball Ratio
-12. Wins Above Replacement = consistency
-13. Pitches per Plate Appearance = pitch intuition
-14. Walk-to-Strikeout Ratio = pitch intuition
-15. Plate Appearances (to normalize) = consistency
-16. Runners in Scoring Position = clutch, contact
-17. Sacrifice Hits = contact
-18. Late Inning Pressure Situation = clutch
+1. Singles - 1
+2. Doubles - 1, 3
+3. Homeruns - 3
+4. Runs - 2
+5. RBI - 1, 3
+6. Walks - 4
+7. Intentional Walks - 3
+8. Strike Outs - 1, 4
+9. Sacrifice - 1
+10. Grounded into double play - 2
+11. Stolen Bases - 2
+12. Caught Stealing - 2
+13. Walk/Strike out Ratio - 4
+
+*Comprehensive Stats*
 
 Weighted Runs Created Plus
-Weighted On Base Average
+Wins Above Replacement
+Win Probability Added
+
+
