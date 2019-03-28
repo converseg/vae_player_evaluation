@@ -11,17 +11,24 @@
 
 *Statistics*
 
-1. Batting Average = contact, consistency
-2. On Base Percentage = pitch intuition, consistency
-3. Slugging Percentage (total bases/at bats) = contact, baserunning, power
-4. Isolated Power (amount of extra bases with a hit) = baserunning, power
-5. Stealing Percentage = baserunning
-6. Ground-Out to Fly-Out Ratio = contact, power
-7. Ground-Ball to Fly-Ball Ratio
-8. Wins Above Replacement = consistency
-9. Pitches per Plate Appearance = pitch intuition
-10. Walk-to-Strikeout Ratio = pitch intuition
-11. Plate Appearances (to normalize) = consistency
-12. Runners in Scoring Position = clutch, contact
-13. Sacrifice Hits = contact
-14. Late Inning Pressure Situation = clutch
+1. Singles
+2. Doubles
+3. Triples
+4. Homeruns
+5. Batting Average = contact, consistency
+6. On Base Percentage = pitch intuition, consistency
+7. Slugging Percentage (total bases/at bats) = contact, baserunning, power
+8. Isolated Power (amount of extra bases with a hit) = baserunning, power
+9. Stealing Percentage = baserunning
+10. Ground-Out to Fly-Out Ratio = contact, power
+11. Ground-Ball to Fly-Ball Ratio
+12. Wins Above Replacement = consistency
+13. Pitches per Plate Appearance = pitch intuition
+14. Walk-to-Strikeout Ratio = pitch intuition
+15. Plate Appearances (to normalize) = consistency
+16. Runners in Scoring Position = clutch, contact
+17. Sacrifice Hits = contact
+18. Late Inning Pressure Situation = clutch
+
+Weighted Runs Created Plus
+Weighted On Base Average
