@@ -25,8 +25,8 @@
 
 *Comprehensive Stats*
 
-Weighted Runs Created Plus
-1. Wins Above Replacement
-2. Win Probability Added
+1. Weighted Runs Created Plus
+2. Wins Above Replacement
+3. Win Probability Added
 
 
