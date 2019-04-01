@@ -3,8 +3,8 @@ K <- keras::backend()
 library(tensorflow)
 
 # these numbers are for the educational data
-num_stats <- 28
-num_skills <- 3
+num_stats <- 13
+num_skills <- 4
 
 N <- 10000 # number of subjects
 tr <- 10000 # how many to train on - should eventually move to 85% train, 15% test
@@ -12,34 +12,19 @@ batch_size <- 50
 epochs <- 10
 
 Q <- matrix(c(
-  1, 1, 0,
-  0, 1, 0,
-  1, 0, 1,
-  0, 0, 1,
-  0, 0, 1,
-  0, 0, 1,
-  1, 0, 1,
-  0, 1, 0,
-  0, 0, 1,
-  1, 0, 0,
-  1, 0, 1,
-  1, 0, 1,
-  1, 0, 0,
-  1, 0, 0,
-  0, 0, 1,
-  1, 0, 1,
-  0, 1, 1,
-  0, 0, 1,
-  0, 0, 1,
-  1, 0, 1,
-  1, 0, 1,
-  0, 0, 1,
-  0, 1, 0,
-  0, 1, 0,
-  1, 0, 0,
-  0, 0, 1,
-  1, 0, 0,
-  0, 0, 1), nrow=num_stats, ncol=num_skills, byrow=TRUE)
+  1, 0, 0, 0,
+  1, 0, 1, 0,
+  0, 0, 1, 0,
+  0, 1, 0, 0,
+  1, 0, 1, 0,
+  0, 0, 0, 1,
+  0, 0, 1, 0,
+  1, 0, 0, 1,
+  1, 0, 0, 0,
+  0, 1, 0, 0,
+  0, 1, 0, 0,
+  0, 1, 0, 0,
+  0, 0, 0, 1), nrow=num_stats, ncol=num_skills, byrow=TRUE)
 colnames(Q) <- paste("Dim",c(1:num_skills),sep="")
 rownames(Q) <- paste("Item",c(1:num_stats),sep="")
 Q = t(Q)
