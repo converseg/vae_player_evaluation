@@ -1,4 +1,12 @@
+#to eliminate %>% not found error
+
+library(dplyr)
+
+
 library(keras)
+#eliminale the ImportError function: No module named 'keras'
+install_keras()
+
 K <- keras::backend()
 library(tensorflow)
 
@@ -7,9 +15,35 @@ num_stats <- 13
 num_skills <- 4
 
 N <- 10000 # number of subjects
-tr <- 10000 # how many to train on - should eventually move to 85% train, 15% test
+tr <- 10000 
+# how many to train on - should eventually move to 85% train, 15% test
+ 
+#we can use it later
+#training_data = 8500
+#test_data = 1500
 batch_size <- 50
 epochs <- 10
+
+#modified Q-matrix for
+#sports data
+
+# Q <- matrix(c(
+#   1, 0, 0, 0, 1, 0,
+#   0, 0, 0, 1, 1, 0,
+#   1, 1, 1, 0, 0, 0,
+#   0, 1, 1, 0, 0, 0,
+#   0, 1, 0, 0, 0, 0,
+#   1, 0, 1, 0, 0, 0,
+#   1, 0, 1, 0, 0, 0,
+#   0, 0, 0, 0, 1, 0,
+#   0, 0, 0, 1, 0, 0,
+#   0, 0, 0, 1, 0, 0,
+#   0, 0, 0, 0, 1, 0,
+#   1, 0, 0, 0, 0, 1,
+#   1, 0, 0, 0, 0, 0,
+#   0, 0, 0, 0, 0, 1), nrow=num_stats, ncol=num_skills, byrow=TRUE)
+
+#modified Q-matrix for sports data
 
 Q <- matrix(c(
   1, 0, 0, 0,
@@ -28,6 +62,12 @@ Q <- matrix(c(
 colnames(Q) <- paste("Dim",c(1:num_skills),sep="")
 rownames(Q) <- paste("Item",c(1:num_stats),sep="")
 Q = t(Q)
+
+
+
+#colnames(Q) <- paste("Dim",c(1:num_skills),sep="")
+#rownames(Q) <- paste("Item",c(1:num_stats),sep="")
+#Q = t(Q)
 
 # build up neural network
 input <- layer_input(shape = c(num_stats), name="input")
@@ -91,12 +131,28 @@ summary(vae)
 # Y <- as.matrix(read.csv(file='baseball_stats.csv'), sep=',', header=TRUE)
 # data_train <- Y[1:tr,]
 
+#Loading data for soprts analytics
+#Loading file final_data.csv
+
+data_sports = read.csv("final_data.csv", sep=',', header=TRUE)
+#read data as matrix format
+
+Y <- as.matrix(data_sports)
+#can also be written as
+#Y <- as.matrix(data_sports,sep=',', header=FALSE)
+
+#taking data_train values
+
+#data_train <- Y[1:0.85*tr]
+
+
+
 #########  Model 1 training ---------------------------------------------------
 vae %>% fit(
   data_train, data_train, 
   shuffle = TRUE, 
   epochs = epochs, 
-  batch_size = batch_size, 
+  batch_size = batch_size 
 )
 
 # Get skill predictions
