@@ -22,7 +22,7 @@ tr <- 10000
 #training_data = 8500
 #test_data = 1500
 batch_size <- 50
-epochs <- 10
+epochs <- 20
 
 #modified Q-matrix for
 #sports data
@@ -120,31 +120,14 @@ vae %>% compile(optimizer = "SGD", loss = vae_loss, metrics= 'accuracy')
 summary(vae)
 
 
-# LOAD DATA
-# Educational data - not in this repository
-# r=1
-# Y <- as.matrix(read.csv(file=paste("Yrep",r,".csv",sep=""), sep=";", header=FALSE))		#item response values
-# Y <- array(data=Y, dim=c(N, num_stats))
-# data_train <- Y[1:tr,]
-
-# other data - don't have this yet
-# Y <- as.matrix(read.csv(file='baseball_stats.csv'), sep=',', header=TRUE)
-# data_train <- Y[1:tr,]
-
 #Loading data for soprts analytics
 #Loading file final_data.csv
-
 data_sports = read.csv("final_data.csv", sep=',', header=TRUE)
-#read data as matrix format
 
-Y <- as.matrix(data_sports)
-#can also be written as
-#Y <- as.matrix(data_sports,sep=',', header=FALSE)
-
-#taking data_train values
-
-#data_train <- Y[1:0.85*tr]
-
+# need to pick out the features we want
+Y <- select(data_sports, X1B, X2B, HR, R, RBI, BB, IBB, SO, SAC, GDP, SB, CS, BB.K)
+Y[is.na(Y)] <- 0
+data_train <-as.matrix(Y)
 
 
 #########  Model 1 training ---------------------------------------------------
