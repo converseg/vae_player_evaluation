@@ -24,25 +24,6 @@ tr <- 10000
 batch_size <- 50
 epochs <- 20
 
-#modified Q-matrix for
-#sports data
-
-# Q <- matrix(c(
-#   1, 0, 0, 0, 1, 0,
-#   0, 0, 0, 1, 1, 0,
-#   1, 1, 1, 0, 0, 0,
-#   0, 1, 1, 0, 0, 0,
-#   0, 1, 0, 0, 0, 0,
-#   1, 0, 1, 0, 0, 0,
-#   1, 0, 1, 0, 0, 0,
-#   0, 0, 0, 0, 1, 0,
-#   0, 0, 0, 1, 0, 0,
-#   0, 0, 0, 1, 0, 0,
-#   0, 0, 0, 0, 1, 0,
-#   1, 0, 0, 0, 0, 1,
-#   1, 0, 0, 0, 0, 0,
-#   0, 0, 0, 0, 0, 1), nrow=num_stats, ncol=num_skills, byrow=TRUE)
-
 #modified Q-matrix for sports data
 
 Q <- matrix(c(
@@ -63,11 +44,6 @@ colnames(Q) <- paste("Dim",c(1:num_skills),sep="")
 rownames(Q) <- paste("Item",c(1:num_stats),sep="")
 Q = t(Q)
 
-
-
-#colnames(Q) <- paste("Dim",c(1:num_skills),sep="")
-#rownames(Q) <- paste("Item",c(1:num_stats),sep="")
-#Q = t(Q)
 
 # build up neural network
 input <- layer_input(shape = c(num_stats), name="input")
@@ -120,14 +96,18 @@ vae %>% compile(optimizer = "SGD", loss = vae_loss, metrics= 'accuracy')
 summary(vae)
 
 
-#Loading data for soprts analytics
-#Loading file final_data.csv
-data_sports = read.csv("final_data.csv", sep=',', header=TRUE)
+set.seed(2) #for reproducibility
 
+#Loading data for soprts analytics
+data_sports = read.csv("final_data.csv", sep=',', header=TRUE)
+#randomize the rows to split train/test since the original data was sorted
+data_sports <- data_sports[sample(nrow(data_sports)),]
 # need to pick out the features we want
 Y <- select(data_sports, X1B, X2B, HR, R, RBI, BB, IBB, SO, SAC, GDP, SB, CS, BB.K)
 Y[is.na(Y)] <- 0
-data_train <-as.matrix(Y)
+Y$CS <- -Y$CS #I don't think this got changed, since this stat had all zeros for weights
+data_train <- as.matrix(Y[1:7600,])
+data_test <- as.matrix(Y[7601:8604,])
 
 
 #########  Model 1 training ---------------------------------------------------
@@ -139,10 +119,16 @@ vae %>% fit(
 )
 
 # Get skill predictions
-skill_preds <- predict(encoder,data_train)
+skill_preds <- predict(encoder,data_test)
 
 # Estimated weights 
 W <-get_weights(vae)
+
+plot(data_sports[7601:8604,]$BABIP, skill_preds[,1])
+plot(data_sports[7601:8604,]$Spd, skill_preds[,2])
+plot(data_sports[7601:8604,]$ISO, skill_preds[,3])
+plot(data_sports[7601:8604,]$OBP, skill_preds[,4])
+
 
 # These were useful in the educational setting, not sure if they will be in sports analytics
 discr <- as.matrix(W[[7]])
