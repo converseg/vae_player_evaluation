@@ -126,7 +126,7 @@ W <-get_weights(vae)
 
 plot(data_sports[7601:8604,]$BABIP, skill_preds[,1])
 plot(data_sports[7601:8604,]$Spd, skill_preds[,2])
-plot(data_sports[7601:8604,]$ISO, skill_preds[,3])
+plot(data_sports[7601:8604,]$SLG, skill_preds[,3])
 plot(data_sports[7601:8604,]$OBP, skill_preds[,4])
 
 
