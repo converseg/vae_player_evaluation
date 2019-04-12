@@ -1,7 +1,5 @@
 #to eliminate %>% not found error
-
 library(dplyr)
-
 
 library(keras)
 #eliminale the ImportError function: No module named 'keras'
@@ -22,7 +20,7 @@ tr <- 10000
 #training_data = 8500
 #test_data = 1500
 batch_size <- 50
-epochs <- 20
+epochs <- 10
 
 #modified Q-matrix for sports data
 
@@ -96,7 +94,7 @@ vae %>% compile(optimizer = "SGD", loss = vae_loss, metrics= 'accuracy')
 summary(vae)
 
 
-set.seed(2) #for reproducibility
+set.seed(20) #for reproducibility
 
 #Loading data for soprts analytics
 data_sports = read.csv("final_data.csv", sep=',', header=TRUE)
@@ -124,11 +122,16 @@ skill_preds <- predict(encoder,data_test)
 # Estimated weights 
 W <-get_weights(vae)
 
-plot(data_sports[7601:8604,]$BABIP, skill_preds[,1])
-plot(data_sports[7601:8604,]$Spd, skill_preds[,2])
-plot(data_sports[7601:8604,]$SLG, skill_preds[,3])
-plot(data_sports[7601:8604,]$OBP, skill_preds[,4])
+plot(data_sports[7601:8604,]$AVG, skill_preds[,1], xlab='AVG', ylab='Contact')
+plot(data_sports[7601:8604,]$AVG, skill_preds[,1], xlab='AVG', ylab='Contact')
+plot(data_sports[7601:8604,]$Spd, skill_preds[,2], xlab='SPD', ylab='Baserunning')
+plot(data_sports[7601:8604,]$ISO, skill_preds[,3], xlab='ISO', ylab='Power')
+plot(data_sports[7601:8604,]$OBP, skill_preds[,4], xlab='OBP', ylab='Pitch Intuition')
 
+cor(data_sports[7601:8604,]$AVG, skill_preds[,1]) #0.2138401
+cor(data_sports[7601:8604,]$Spd, skill_preds[,2]) #0.7952529
+cor(data_sports[7601:8604,]$ISO, skill_preds[,3]) #0.9032751
+cor(data_sports[7601:8604,]$OBP, skill_preds[,4]) #0.6840747
 
 # These were useful in the educational setting, not sure if they will be in sports analytics
 discr <- as.matrix(W[[7]])
