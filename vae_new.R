@@ -139,3 +139,16 @@ diff <- as.matrix(W[[8]])
 print(discr)
 # print(diff)
 
+all_player_skills <- predict(encoder,as.matrix(Y))
+all_ids = as.matrix(data_sports$Season_playerid)
+
+ids = c()
+j = 1
+for (s in 1:4){
+  highest_10_ind = order(-all_player_skills[,s])[1:10]
+  for (i in 1:10){
+    ids[j] = all_ids[highest_10_ind[i]]
+    j = j + 1
+  }
+}
+print(ids)
