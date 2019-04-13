@@ -3,7 +3,7 @@ library(dplyr)
 
 library(keras)
 #eliminale the ImportError function: No module named 'keras'
-#install_keras()
+# install_keras()
 
 K <- keras::backend()
 library(tensorflow)
@@ -29,7 +29,7 @@ Q <- matrix(c(
   1, 0, 1, 0,
   0, 0, 1, 0,
   0, 1, 0, 0,
-  1, 0, 1, 0,
+  0, 0, 1, 0,
   0, 0, 0, 1,
   0, 0, 1, 0,
   1, 0, 0, 1,
@@ -123,7 +123,7 @@ skill_preds <- predict(encoder,data_test)
 W <-get_weights(vae)
 
 plot(data_sports[7601:8604,]$AVG, skill_preds[,1], xlab='AVG', ylab='Contact')
-plot(data_sports[7601:8604,]$AVG, skill_preds[,1], xlab='AVG', ylab='Contact')
+plot(data_sports[7601:8604,]$BABIP, skill_preds[,1], xlab='BABIP', ylab='Contact')
 plot(data_sports[7601:8604,]$Spd, skill_preds[,2], xlab='SPD', ylab='Baserunning')
 plot(data_sports[7601:8604,]$ISO, skill_preds[,3], xlab='ISO', ylab='Power')
 plot(data_sports[7601:8604,]$OBP, skill_preds[,4], xlab='OBP', ylab='Pitch Intuition')
@@ -137,5 +137,5 @@ cor(data_sports[7601:8604,]$OBP, skill_preds[,4]) #0.6840747
 discr <- as.matrix(W[[7]])
 diff <- as.matrix(W[[8]])
 print(discr)
-print(diff)
+# print(diff)
 
