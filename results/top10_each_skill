@@ -14,7 +14,7 @@
  --- 
 BASERUNNING --- 
 [1] "1980 _ 1007478" --- Ron LeFlore
-[2] "1982 _ 194"     --- Rickey Henderson (nicknamed "Man of Steal")
+[2] "1982 _ 194"     --- Rickey Henderson
 [3] "1987 _ 1002433" --- Vince Coleman
 [4] "1974 _ 1001458" --- Lou Brock
 [5] "1981 _ 1406"    --- Tim Raines
@@ -37,9 +37,9 @@ POWER    ---
 [10] "1989 _ 1009004" --- Kevin Mitchell
  --- 
 PITCH INTUITION --- 
-[1] "1952 _ 1013335" --- Elmer Valo
+[1] "1952 _ 1013335" --- Elmer Valo ('strike zone judgement')
 [2] "2004 _ 1109"    --- Barry Bonds
-[3] "1953 _ 1003902" --- Ferris Fain
+[3] "1953 _ 1003902" --- Ferris Fain (led league in OBP in 1952)
 [4] "2002 _ 1109"    --- Barry Bonds
 [5] "1973 _ 1010636" --- Dave Rader
 [6] "1958 _ 1004724" --- Jim Gilliam
@@ -52,10 +52,12 @@ COMPOSITE ---
  [1] "2003 _ 1109"    --- Barry Bonds
  [2] "2002 _ 1109"    --- Barry Bonds
  [3] "1957 _ 1014040" --- Ted Williams
- [4] "1969 _ 1008423" --- Willie McCovey (HOF)
+ [4] "1969 _ 1008423" --- Willie McCovey
  [5] "2004 _ 1109"    --- Barry Bonds
  [6] "1995 _ 255"     --- Frank Thomas
  [7] "2009 _ 1177"    --- Albert Pujols
  [8] "1954 _ 1014040" --- Ted Williams
  [9] "1950 _ 1000898" --- Yogi Berra
 [10] "1996 _ 255"     --- Frank Thomas
+
+reference: https://www.mlb.com/news/top-40-individual-seasons-in-mlb-history-c265467720
