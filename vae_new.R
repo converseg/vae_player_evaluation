@@ -8,6 +8,9 @@ library(keras)
 K <- keras::backend()
 library(tensorflow)
 
+set.seed(2) #for reproducibility
+
+
 # these numbers are for the educational data
 num_stats <- 13
 num_skills <- 4
@@ -20,7 +23,7 @@ tr <- 10000
 #training_data = 8500
 #test_data = 1500
 batch_size <- 50
-epochs <- 10
+epochs <- 20
 
 #modified Q-matrix for sports data
 
@@ -47,7 +50,10 @@ Q = t(Q)
 input <- layer_input(shape = c(num_stats), name="input")
 
 # hidden layers - architecture will need to be tuned
-h <- layer_dense(input, 10, activation = 'tanh', name='hidden')
+h <- layer_dense(input, 10, activation = 'tanh', name='hidden1')
+# h <- layer_dense(h, 5, activation='sigmoid', name='hidden2')
+# h <- layer_dense(h, 10, activation='sigmoid', name='hidden3')
+# h <- layer_dense(h, 5, activation='sigmoid', name='hidden4')
 z_mean <- layer_dense(h, num_skills, name='z_mean')
 z_log_var <- layer_dense(h, num_skills, name='z_log_var')
 
@@ -86,18 +92,21 @@ vae <- keras_model(input, out)
 
 vae_loss <- function(input, output){
   cross_entropy_loss <- (num_stats/1.0)* loss_binary_crossentropy(input, output)
+  mse <- (num_stats/1.0) * loss_mean_squared_error(input,output)
   kl_loss <- -0.5*k_mean(1+z_log_var - k_square(z_mean) - k_exp(z_log_var), axis=-1L)
-  cross_entropy_loss + kl_loss
+  mse + kl_loss
 }
 
 vae %>% compile(optimizer = "SGD", loss = vae_loss, metrics= 'accuracy')
 summary(vae)
 
 
-set.seed(20) #for reproducibility
 
 #Loading data for soprts analytics
 data_sports = read.csv("final_data.csv", sep=',', header=TRUE)
+extra_data = read.csv("rawdata.csv", sep=',', header=TRUE)
+ctct = extra_data$ctct_z
+data_sports$cntct = ctct
 #randomize the rows to split train/test since the original data was sorted
 data_sports <- data_sports[sample(nrow(data_sports)),]
 # need to pick out the features we want
@@ -122,33 +131,34 @@ skill_preds <- predict(encoder,data_test)
 # Estimated weights 
 W <-get_weights(vae)
 
-plot(data_sports[7601:8604,]$AVG, skill_preds[,1], xlab='AVG', ylab='Contact')
-plot(data_sports[7601:8604,]$BABIP, skill_preds[,1], xlab='BABIP', ylab='Contact')
+plot(data_sports[7601:8604,]$cntct, skill_preds[,1], xlab='cntct', ylab='Contact')
+# plot(data_sports[7601:8604,]$BABIP, skill_preds[,1], xlab='BABIP', ylab='Contact')
 plot(data_sports[7601:8604,]$Spd, skill_preds[,2], xlab='SPD', ylab='Baserunning')
 plot(data_sports[7601:8604,]$ISO, skill_preds[,3], xlab='ISO', ylab='Power')
 plot(data_sports[7601:8604,]$OBP, skill_preds[,4], xlab='OBP', ylab='Pitch Intuition')
 
-cor(data_sports[7601:8604,]$AVG, skill_preds[,1]) #0.2138401
+cor(data_sports[7601:8604,]$cntct, skill_preds[,1]) #0.2138401
 cor(data_sports[7601:8604,]$Spd, skill_preds[,2]) #0.7952529
 cor(data_sports[7601:8604,]$ISO, skill_preds[,3]) #0.9032751
 cor(data_sports[7601:8604,]$OBP, skill_preds[,4]) #0.6840747
+
 
 # These were useful in the educational setting, not sure if they will be in sports analytics
 discr <- as.matrix(W[[7]])
 diff <- as.matrix(W[[8]])
 print(discr)
-# print(diff)
+print(diff)
 
 all_player_skills <- predict(encoder,as.matrix(Y))
 all_ids = as.matrix(data_sports$Season_playerid)
 
-ids = c()
-j = 1
-for (s in 1:4){
-  highest_10_ind = order(-all_player_skills[,s])[1:10]
-  for (i in 1:10){
-    ids[j] = all_ids[highest_10_ind[i]]
-    j = j + 1
-  }
-}
-print(ids)
+# ids = c()
+# j = 1
+# for (s in 1:4){
+#   highest_10_ind = order(-all_player_skills[,s])[1:10]
+#   for (i in 1:10){
+#     ids[j] = all_ids[highest_10_ind[i]]
+#     j = j + 1
+#   }
+# }
+# print(ids)
